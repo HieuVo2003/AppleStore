@@ -17,7 +17,7 @@
         <div class="card-body">
             <h5 class="product-name" th:text="${product.name}"></h5>
             <p class="product-description" th:text="${product.description}"></p>
-            <ul class="list-group list-group-flush">
+            <ul class="product-info">
                 <li class="product-price">Giá: <span th:text="${product.price} + ' $'"></span></li>
                 <li class="product-category">Loại: <span th:text="${product.category.name}"></span></li>
                 <li class="product-yearmanufacture">Năm Sản Xuất: <span th:text="${product.yearManufacture != null ? product.yearManufacture.year : ''}"></span></li>
