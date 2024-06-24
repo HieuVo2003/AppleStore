@@ -32,7 +32,7 @@
                     <a th:href="@{/products/edit/{id}(id=${product.id})}"
                        class="btn btn-success btn-sm">Sửa</a>
                     <a th:href="@{/products/delete/{id}(id=${product.id})}"
-                       class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+                       class="btn btn-danger btn-sm" onclick="return confirm('Bạn muốn xoá?')">Xóa</a>
                 </div>
                 <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()" class="d-flex">
                     <label>
