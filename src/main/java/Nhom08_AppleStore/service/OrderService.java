@@ -60,4 +60,7 @@ public class OrderService {
         return orderRepository.findByUsername(username);
     }
 
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id).orElse(null);
+    }
 }

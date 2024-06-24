@@ -41,6 +41,7 @@ public class ProductService {
         existingProduct.setYearManufacture(product.getYearManufacture());
         return productRepository.save(existingProduct);
     }
+
     // Delete a product by its id
     public void deleteProductById(Long id) {
         if (!productRepository.existsById(id)) {

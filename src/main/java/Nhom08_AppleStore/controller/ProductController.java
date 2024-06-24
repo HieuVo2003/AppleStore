@@ -114,4 +114,12 @@ public class ProductController {
 
         return ResponseEntity.ok().body(matchedProducts);
     }
+    @GetMapping("/{id}")
+    public String showProductDetails(@PathVariable Long id, Model model) {
+        Product product = productService.getProductById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
+
+        model.addAttribute("product", product);
+        return "/products/product-details";
+    }
 }

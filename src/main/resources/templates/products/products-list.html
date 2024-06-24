@@ -34,6 +34,10 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
+                        <div>
+                            <a th:href="@{/products/{id}(id=${product.id})}"
+                               class="btn btn-primary btn-sm">Chi tiết</a>
+                        </div>
                         <div sec:authorize="hasAuthority('ADMIN')">
                             <a th:href="@{/products/edit/{id}(id=${product.id})}"
                                class="btn btn-success btn-sm">Sửa</a>
@@ -41,8 +45,10 @@
                                class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
                         </div>
                         <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()" class="d-flex">
-                            <input type="number" name="quantity" min="1" value="1"
-                                   class="form-control me-2" style="width: 70px;">
+                            <label>
+                                <input type="number" name="quantity" min="1" value="1"
+                                       class="form-control me-2" style="width: 70px;">
+                            </label>
                             <input type="hidden" th:value="${product.id}" name="productId"/>
                             <button type="submit" class="btn btn-warning btn-sm">Thêm Vào Giỏ</button>
                         </form>
