@@ -15,15 +15,15 @@
     <div class="card">
         <img th:src="@{/static/{imageUrl}(imageUrl=${product.imUrl})}" class="card-img-top" alt="Product Image">
         <div class="card-body">
-            <h5 class="product-name" th:text="${product.name}"></h5>
-            <p class="product-description" th:text="${product.description}"></p>
-            <ul class="product-info">
-                <li class="product-price">Giá: <span th:text="${product.price} + ' $'"></span></li>
-                <li class="product-category">Loại: <span th:text="${product.category.name}"></span></li>
-                <li class="product-yearmanufacture">Năm Sản Xuất: <span th:text="${product.yearManufacture != null ? product.yearManufacture.year : ''}"></span></li>
+            <h5 class="card-title" th:text="${product.name}"></h5>
+            <p class="card-text" th:text="${product.description}"></p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Giá: <span th:text="${product.price} + ' $'"></span></li>
+                <li class="list-group-item">Loại: <span th:text="${product.category.name}"></span></li>
+                <li class="list-group-item">Năm Sản Xuất: <span th:text="${product.yearManufacture != null ? product.yearManufacture.year : ''}"></span></li>
             </ul>
         </div>
-        <div class="product-button">
+        <div class="card-footer">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <a href="#" class="btn btn-secondary btn-sm" onclick="history.go(-1); return false;">Quay lại</a>
@@ -32,7 +32,7 @@
                     <a th:href="@{/products/edit/{id}(id=${product.id})}"
                        class="btn btn-success btn-sm">Sửa</a>
                     <a th:href="@{/products/delete/{id}(id=${product.id})}"
-                       class="btn btn-danger btn-sm" onclick="return confirm('Bạn muốn xoá?')">Xóa</a>
+                       class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
                 </div>
                 <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()" class="d-flex">
                     <label>
