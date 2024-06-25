@@ -56,6 +56,7 @@
             <th>Ghi Chú</th>
             <th>Phương Thức Thanh Toán</th>
             <th>Sản Phẩm</th>
+            <th>Trạng thái</th>
         </tr>
         </thead>
         <tbody>
@@ -68,6 +69,14 @@
                 <ul>
                     <li th:each="detail : ${order.orderDetails}" th:text="${detail.product.name} + ' x ' + ${detail.quantity}"></li>
                 </ul>
+            </td>
+            <td>
+                <div th:if="${order.status != 'DELIVERED'}">
+                    <form th:action="@{/order/{id}/cancel(id=${order.id})}" method="Delete">
+                        <input type="hidden" name="status" value="delete" />
+                        <button type="submit">Huỷ</button>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>

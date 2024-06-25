@@ -3,8 +3,10 @@ package Nhom08_AppleStore.service;
 import Nhom08_AppleStore.model.CartItem;
 import Nhom08_AppleStore.model.Order;
 import Nhom08_AppleStore.model.OrderDetail;
+import Nhom08_AppleStore.model.OrderStatus;
 import Nhom08_AppleStore.repository.OrderDetailRepository;
 import Nhom08_AppleStore.repository.OrderRepository;
+import groovy.lang.GString;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -60,4 +64,28 @@ public class OrderService {
         return orderRepository.findByUsername(username);
     }
 
+    public Order updateOrderStatus(Long orderId, OrderStatus status) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            order.setStatus(status);
+            return orderRepository.save(order);
+        }
+        return new Order();
+    }
+
+    public String cancelOrder(Long orderId) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            if (order.getStatus() == OrderStatus.DELIVERED) {
+                return "Đơn hàng đang được giao không thể huỷ";
+            }
+            order.setStatus(OrderStatus.CANCELLED);
+            orderRepository.save(order);
+            return "Đơn hàng đã được huỷ thành công";
+        } else {
+            return "Không tìm thấy đơn hàng";
+        }
+    }
 }

@@ -2,16 +2,16 @@ package Nhom08_AppleStore.controller;
 
 import Nhom08_AppleStore.model.CartItem;
 import Nhom08_AppleStore.model.Order;
+import Nhom08_AppleStore.model.OrderStatus;
 import Nhom08_AppleStore.service.CartService;
 import Nhom08_AppleStore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -54,5 +54,19 @@ public class OrderController {
         System.out.println("Username: " + username);
         model.addAttribute("orders", orders);
         return "order/my-orders";
+    }
+
+
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/{id}/cancel")
+    public String cancelOrder(@PathVariable Long id) {
+        orderService.cancelOrder(id);
+        return "redirect:/order/myorder";
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}/status")
+    public String updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
+        orderService.updateOrderStatus(id, status);
+        return "redirect:/order/list";
     }
 }

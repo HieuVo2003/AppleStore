@@ -59,6 +59,8 @@
             <th>Ghi Chú</th>
             <th>Phương Thức Thanh Toán</th>
             <th>Sản Phẩm</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
         </tr>
         </thead>
         <tbody>
@@ -74,6 +76,16 @@
                 <ul>
                     <li th:each="detail : ${order.orderDetails}" th:text="${detail.product.name} + ' x ' + ${detail.quantity}"></li>
                 </ul>
+            </td>
+            <td th:text="${order.status}"></td> <!-- Hiển thị trạng thái của đơn hàng -->
+            <td>
+                    <form th:action="@{/order/{id}/status(id=${order.id})}" method="put">
+                        <select name="status">
+                            <option value="PENDING" th:selected="${order.status == 'PENDING'}">Đang xử lý</option>
+                            <option value="DELIVERED" th:selected="${order.status == 'DELIVERED'}">Đã giao hàng</option>
+                        </select>
+                        <button type="submit">Cập nhật</button>
+                    </form>
             </td>
         </tr>
         </tbody>

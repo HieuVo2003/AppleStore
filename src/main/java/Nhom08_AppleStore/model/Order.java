@@ -33,5 +33,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.PENDING;
 
 }
